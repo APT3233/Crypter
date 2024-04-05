@@ -32,9 +32,13 @@ The purpose of this program is to promote understanding and awareness of malware
 
 ## Usage:
 ### Download Crypter 
-```git clone https://github.com/APT3233/Crypter.git```
+```
+git clone https://github.com/APT3233/Crypter.git
+```
 ### Move to folder 
-```cd Crypter```
+```
+cd Crypter
+```
 ### Fill in the following information
 ```init
 self.api = 'YOUR_API'
@@ -46,10 +50,12 @@ self.ransomware_amount_of_money = "AMOUNT_OF_MONEY"
 ```
 
 ### Install Modules 
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 ### Run file 
-```pythonw Encrypter.py```
+```
+pythonw Encrypter.py
+```
 
-
-                                                    
-
+                                                
