@@ -58,4 +58,8 @@ pip install -r requirements.txt
 pythonw Encrypter.py
 ```
 
+## Additional
+- This is just a demo version. If you want to upgrade the program, please generate an RSA key pair, then use the public key to encrypt the AES key to prevent key exposure.
+
+
                                                 
