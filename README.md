@@ -2,8 +2,8 @@
 ## Dark Raven v1.5.4
 
 
-** This Ransomeware is for educational purposes only. It should not be used to harm or exploit others' computers.
-The purpose of this program is to promote understanding and awareness of malware, cryptography, operating systems, and programming. It serves as a learning tool to explore security concepts and cryptographic techniques. **
+**This Ransomeware is for educational purposes only. It should not be used to harm or exploit others' computers.
+The purpose of this program is to promote understanding and awareness of malware, cryptography, operating systems, and programming. It serves as a learning tool to explore security concepts and cryptographic techniques.**
 
 > [!CAUTION]
 > By default Encrypter.py is configured to encrypt C:\Users\
